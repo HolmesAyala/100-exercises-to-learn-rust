@@ -8,6 +8,42 @@ enum Status {
     Done,
 }
 
+impl TryFrom<String> for Status {
+    type Error = String;
+
+    fn try_from(value: String) -> Result<Self, Self::Error> {
+        let value_lowercase = value.to_lowercase();
+
+        if value_lowercase.eq("todo") {
+            return Ok(Status::ToDo);
+        } else if value_lowercase.eq("inprogress") {
+            return Ok(Status::InProgress);
+        } else if value_lowercase.eq("done") {
+            return Ok(Status::Done);
+        }
+
+        Err(format!("Unable to convert the value to Status: {}", value))
+    }
+}
+
+impl TryFrom<&str> for Status {
+    type Error = String;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        let value_lowercase = value.to_lowercase();
+
+        if value_lowercase.eq("todo") {
+            return Ok(Status::ToDo);
+        } else if value_lowercase.eq("inprogress") {
+            return Ok(Status::InProgress);
+        } else if value_lowercase.eq("done") {
+            return Ok(Status::Done);
+        }
+
+        Err(format!("Unable to convert the value to Status: {}", value))
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
